@@ -1,4 +1,4 @@
- #ifndef FusionEKF_H_
+#ifndef FusionEKF_H_
 #define FusionEKF_H_
 
 #include "measurement_package.h"
@@ -25,11 +25,12 @@ public:
   * Run the whole flow of the Kalman Filter from here.
   */
   void ProcessMeasurement(const MeasurementPackage &measurement_pack);
-
   /**
   * Kalman Filter update and prediction math lives in here.
   */
   KalmanFilter ekf_;
+
+  Eigen::MatrixXd RMSE_Collect;
 
 private:
   // check whether the tracking toolbox was initialized or not (first measurement)
@@ -37,6 +38,10 @@ private:
 
   // previous timestamp
   long long previous_timestamp_;
+
+  // accelaeration noise components
+  float noise_ax;
+  float noise_ay;
 
   // tool object used to compute Jacobian and RMSE
   Tools tools;
